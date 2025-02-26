@@ -2,10 +2,8 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Tables;
 use App\Models\Penerbit;
 use Filament\Tables\Table;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Columns\TextColumn;
 use App\Filament\Resources\BukuResource;
 use Filament\Tables\Filters\SelectFilter;
@@ -13,8 +11,8 @@ use Filament\Widgets\TableWidget as BaseWidget;
 
 class BukuWidget extends BaseWidget
 {
-    protected static ?string $maxHeight = null; // Menghilangkan batas tinggi jika ada
-    protected int | string | array $columnSpan = 'full'; // Pastikan ini menggunakan 'full'
+    protected static ?string $maxHeight = null;
+    protected int | string | array $columnSpan = 'full';
 
      public function table(Table $table): Table
     {
@@ -56,7 +54,6 @@ class BukuWidget extends BaseWidget
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.'))
                     ->searchable(isIndividual: true, query: function ($query, $search) {
-                        // Hilangkan titik dari input pencarian
                         $searchWithoutDots = str_replace('.', '', $search);
                         return $query->whereRaw("REPLACE(harga, '.', '') LIKE ?", ["%$searchWithoutDots%"]);
                     }),

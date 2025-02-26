@@ -16,8 +16,6 @@ class EditBuku extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-
-    //redirect to index after creation
     public function getRedirectUrl(): string{
         return $this->getResource()::getUrl('index');
     }

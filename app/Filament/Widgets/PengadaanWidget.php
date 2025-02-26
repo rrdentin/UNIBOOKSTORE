@@ -17,12 +17,12 @@ class PengadaanWidget extends BaseWidget
     
     public function table(Table $table): Table
     {
-        $stokTerendah = Buku::min('stok'); // Ambil stok paling sedikit
+        $stokTerendah = Buku::min('stok');
 
         return $table
             ->query(
                 Buku::query()
-                    ->orderBy('stok', 'asc') // Urutkan dari stok terkecil
+                    ->orderBy('stok', 'asc')
             )
             ->defaultPaginationPageOption(10)
             ->columns([

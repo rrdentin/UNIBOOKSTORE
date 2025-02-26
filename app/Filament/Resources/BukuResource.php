@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use App\Models\Buku;
 use Filament\Tables;
 use App\Models\Penerbit;
@@ -12,10 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\BukuResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\BukuResource\RelationManagers;
 
 class BukuResource extends Resource
 {
@@ -80,7 +76,6 @@ class BukuResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.'))
                     ->searchable(isIndividual: true, query: function ($query, $search) {
-                        // Hilangkan titik dari input pencarian
                         $searchWithoutDots = str_replace('.', '', $search);
                         return $query->whereRaw("REPLACE(harga, '.', '') LIKE ?", ["%$searchWithoutDots%"]);
                     }),
@@ -143,12 +138,12 @@ class BukuResource extends Resource
     protected static ?string $navigationGroup = 'Admin Management';
     public static function getModelLabel(): string
     {
-        return 'Buku'; // Singular
+        return 'Buku';
     }
 
     public static function getPluralModelLabel(): string
     {
-        return 'Buku'; // No "s" in plural
+        return 'Buku';
     }
     protected static ?string $slug = 'buku';
 
@@ -156,8 +151,6 @@ class BukuResource extends Resource
     {
         return [
             'index' => Pages\ListBukus::route('/'),
-            // 'create' => Pages\CreateBuku::route('/create'),
-            // 'edit' => Pages\EditBuku::route('/{record}/edit'),
         ];
     }
 }

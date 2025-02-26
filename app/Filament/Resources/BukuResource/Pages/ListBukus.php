@@ -21,8 +21,8 @@ class ListBukus extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-BukuStats::class,
+            BukuStats::class,
 
-       ];
+        ];
     }
 }

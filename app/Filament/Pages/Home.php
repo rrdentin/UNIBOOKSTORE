@@ -12,9 +12,8 @@ class Home extends Page
 
     protected static string $view = 'filament.pages.home';
 
-    protected static ?string $navigationLabel = 'Home'; // Navigation label
-    protected static ?string $title = 'Home'; // Page title
-
+    protected static ?string $navigationLabel = 'Home';
+    protected static ?string $title = 'Home';
     protected static ?string $slug = 'home';
 
     protected function getHeaderWidgets(): array

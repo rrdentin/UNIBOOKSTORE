@@ -21,9 +21,8 @@ class ListPenerbits extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-PenerbitStats::class,
-
-       ];
+            PenerbitStats::class,
+        ];
     }
  
 }
