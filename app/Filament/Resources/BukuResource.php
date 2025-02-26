@@ -8,6 +8,7 @@ use App\Models\Penerbit;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Filters\SelectFilter;
@@ -30,9 +31,24 @@ class BukuResource extends Resource
                 TextInput::make('id_buku')->required()->unique(ignoreRecord: true),
                 TextInput::make('kategori')->required(),
                 TextInput::make('nama_buku')->required(),
-                TextInput::make('harga')->required(),
-                TextInput::make('stock')->required(),
-                TextInput::make('id_penerbit')->required(),
+                TextInput::make('harga')
+                    ->numeric()
+                    ->minValue(0)
+                    ->required(),
+                TextInput::make('stok')
+                    ->numeric()
+                    ->minValue(0)
+                    ->required(),
+                Select::make('id_penerbit')
+                    ->label('Nama Penerbit')
+                    ->searchable()
+                    ->options(
+                        \App\Models\Penerbit::query()
+                            ->orderBy('nama')
+                            ->pluck('nama', 'id')
+                            ->toArray()
+                    )
+                    ->required(),
             ]);
     }
 
@@ -111,7 +127,7 @@ class BukuResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('id_penerbit')
-                ->label('Nama Penerbit')
+                    ->label('Nama Penerbit')
                     ->searchable()
                     ->options(Penerbit::all()->pluck('nama', 'id'))
                     ->multiple()
