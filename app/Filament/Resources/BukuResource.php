@@ -25,32 +25,48 @@ class BukuResource extends Resource
     }
 
     public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                TextInput::make('id_buku')->required()->unique(ignoreRecord: true),
-                TextInput::make('kategori')->required(),
-                TextInput::make('nama_buku')->required(),
-                TextInput::make('harga')
-                    ->numeric()
-                    ->minValue(0)
-                    ->required(),
-                TextInput::make('stok')
-                    ->numeric()
-                    ->minValue(0)
-                    ->required(),
-                Select::make('id_penerbit')
-                    ->label('Nama Penerbit')
-                    ->searchable()
-                    ->options(
-                        \App\Models\Penerbit::query()
-                            ->orderBy('nama')
-                            ->pluck('nama', 'id')
-                            ->toArray()
-                    )
-                    ->required(),
-            ]);
-    }
+{
+    return $form
+        ->schema([
+            TextInput::make('id_buku')
+                ->label('ID Buku')
+                ->required()
+                ->unique(ignoreRecord: true)
+                ->placeholder('Masukkan ID Buku'),
+
+            TextInput::make('kategori')
+                ->required()
+                ->placeholder('Masukkan Kategori Buku'),
+
+            TextInput::make('nama_buku')
+                ->required()
+                ->placeholder('Masukkan Nama Buku'),
+
+            TextInput::make('harga')
+                ->numeric()
+                ->minValue(0)
+                ->required()
+                ->placeholder('Masukkan Harga Buku'),
+
+            TextInput::make('stok')
+                ->numeric()
+                ->minValue(0)
+                ->required()
+                ->placeholder('Masukkan Jumlah Stok'),
+
+            Select::make('id_penerbit')
+                ->label('Nama Penerbit')
+                ->searchable()
+                ->options(
+                    \App\Models\Penerbit::query()
+                        ->orderBy('nama')
+                        ->pluck('nama', 'id')
+                        ->toArray()
+                )
+                ->required()
+                ->placeholder('Pilih Penerbit'),
+        ]);
+}
 
     public static function table(Table $table): Table
     {

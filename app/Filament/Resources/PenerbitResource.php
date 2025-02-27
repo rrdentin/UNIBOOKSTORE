@@ -22,10 +22,23 @@ class PenerbitResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('id_penerbit')->required()->unique(ignoreRecord: true),
-                TextInput::make('nama')->required(),
-                TextInput::make('alamat')->required(),
-                TextInput::make('kota')->required(),
+                TextInput::make('id_penerbit')
+                    ->required()
+                    ->unique(ignoreRecord: true)
+                    ->placeholder('Masukkan ID Penerbit'),
+    
+                TextInput::make('nama')
+                    ->required()
+                    ->placeholder('Masukkan Nama Penerbit'),
+    
+                TextInput::make('alamat')
+                    ->required()
+                    ->placeholder('Masukkan Alamat Penerbit'),
+    
+                TextInput::make('kota')
+                    ->required()
+                    ->placeholder('Masukkan Kota Penerbit'),
+    
                 Select::make('tipe_telepon')
                     ->options([
                         'mobile' => '📱 Mobile',
@@ -33,8 +46,9 @@ class PenerbitResource extends Resource
                     ])
                     ->reactive()
                     ->native(false)
-                    ->afterStateHydrated(fn($set, $get) => $set('tipe_telepon', $get('tipe_telepon'))),
-
+                    ->afterStateHydrated(fn($set, $get) => $set('tipe_telepon', $get('tipe_telepon')))
+                    ->placeholder('Pilih Tipe Telepon'),
+    
                 TextInput::make('telepon')
                     ->mask(
                         fn($get) => $get('tipe_telepon')
@@ -43,14 +57,10 @@ class PenerbitResource extends Resource
                                 : '999-9999999')
                             : null
                     )
-                    ->placeholder('Enter phone number')
+                    ->placeholder('Masukkan Nomor Telepon')
                     ->maxLength(15)
                     ->required()
-                    ->afterStateHydrated(
-                        fn($set, $get) =>
-                        $set('telepon', $get('telepon'))
-                    ),
-
+                    ->afterStateHydrated(fn($set, $get) => $set('telepon', $get('telepon'))),
             ]);
     }
     public static function getNavigationBadge(): ?string
